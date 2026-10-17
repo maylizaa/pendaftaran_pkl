@@ -66,7 +66,7 @@
 
 
                 <!-- TEMPAT PKL -->
-                <a href="#"
+                <a href="tempat.php"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-blue-50 transition">
 
                     <svg class="w-6 h-6" fill="none" stroke="currentColor"
@@ -90,7 +90,7 @@
 
 
                 <!-- LAPORAN -->
-                <a href="#"
+                <a href="laporan.php"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-blue-50 transition">
 
                     <svg class="w-6 h-6" fill="none" stroke="currentColor"
@@ -116,7 +116,7 @@
 
 
                 <!-- PROFIL -->
-                <a href="#"
+                <a href="profile.php"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-blue-50 transition">
 
                     <svg class="w-6 h-6" fill="none" stroke="currentColor"
