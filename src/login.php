@@ -1,21 +1,6 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_erors',1);
-?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<?php include_once "templates/header.php"; ?>
 
-    <title>Login - PKL Online</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="flex min-h-screen items-center justify-center
-             bg-slate-100 px-4 py-8">
+<div class="flex min-h-screen items-center justify-center px-4 py-8">
 
     <div class="w-full max-w-md rounded-2xl bg-white
                 p-8 shadow-xl">
@@ -36,17 +21,6 @@ ini_set('display_erors',1);
             </p>
         </div>
 
-        <?php if ($error !== ''): ?>
-            <div class="mb-5 rounded-lg bg-red-100 p-3
-                        text-sm text-red-700">
-                <?= htmlspecialchars(
-                    $error,
-                    ENT_QUOTES,
-                    'UTF-8'
-                ) ?>
-            </div>
-        <?php endif; ?>
-
         <form action="login.php" method="POST"
               class="space-y-5">
 
@@ -62,12 +36,6 @@ ini_set('display_erors',1);
                     id="username"
                     name="username"
                     placeholder="Masukkan username"
-                    value="<?= htmlspecialchars(
-                        $_POST['username'] ?? '',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    ) ?>"
-                    autocomplete="username"
                     required
                     class="w-full rounded-lg border
                            border-slate-300 px-4 py-3
@@ -89,7 +57,6 @@ ini_set('display_erors',1);
                     id="password"
                     name="password"
                     placeholder="Masukkan password"
-                    autocomplete="current-password"
                     required
                     class="w-full rounded-lg border
                            border-slate-300 px-4 py-3
@@ -106,8 +73,12 @@ ini_set('display_erors',1);
                        transition hover:bg-blue-700
                        active:scale-[0.98]"
             >
-                Login Sekarang
+                Login
             </button>
+            <a href="register.php" class="w-full block rounded-lg bg-slate-600
+                       px-4 py-3 font-semibold text-white
+                       transition hover:bg-slate-700 text-center
+                       active:scale-[0.98]">register</a>
 
         </form>
 
@@ -117,5 +88,7 @@ ini_set('display_erors',1);
 
     </div>
 
-</body>
-</html>
+</div>
+
+<?php include_once "templates/footer.php"; ?>
+
