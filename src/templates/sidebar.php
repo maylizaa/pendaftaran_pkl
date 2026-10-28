@@ -140,7 +140,7 @@
 
 
                 <!-- LOGOUT -->
-                <a href="#"
+                <a onclick="return confirm('Yakin ingin keluar ?')" href="logout.php"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-red-50 hover:text-red-600 transition mt-4">
 
                     <svg class="w-6 h-6" fill="none" stroke="currentColor"

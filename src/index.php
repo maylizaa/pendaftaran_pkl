@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    die();
+}
+
+
+?>
+
+
+
 <?php include_once("templates/header.php"); ?>
 
     <div class="flex min-h-screen">

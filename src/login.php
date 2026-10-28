@@ -1,5 +1,53 @@
-<?php include_once "templates/header.php"; ?>
+<?php
+session_start();
 
+require "config/koneksi.php";
+
+function userLogin($conn) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // cek username terdaftar atau tidak
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$user) {
+        echo "
+        <script>
+        alert('Username tidak terdaftar !');
+        window.location.href = 'login.php'
+        </script>
+        ";
+        die();
+    }
+
+    // cek passwordnya cocoknya
+    if (!password_verify($password, $user["password"])) {
+        echo "
+        <script>
+        alert('Password Salah !');
+        window.location.href = 'login.php'
+        </script>
+        ";
+        die();
+    }
+
+    // buat sesi login
+    session_regenerate_id(true);
+    $_SESSION["user_id"] = $user["id"];
+
+    // masuk ke index
+    header("Location: index.php");
+
+}
+
+if (isset($_POST["login"])) {
+    userLogin($conn, $_POST);
+}
+
+?>
+
+<?php include_once "templates/header.php"; ?>
 <div class="flex min-h-screen items-center justify-center px-4 py-8">
 
     <div class="w-full max-w-md rounded-2xl bg-white
@@ -67,7 +115,8 @@
             </div>
 
             <button
-                type="submit"
+                type="submit",
+                name="login"
                 class="w-full rounded-lg bg-blue-600
                        px-4 py-3 font-semibold text-white
                        transition hover:bg-blue-700
