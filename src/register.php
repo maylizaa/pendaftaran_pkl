@@ -1,5 +1,12 @@
 <?php 
 
+session_start();
+
+if (isset($_SESSION["user_id"])) {
+    header("Location: index.php");
+    die();
+}
+
 require "config/koneksi.php";
 
 function userRegister($conn) {

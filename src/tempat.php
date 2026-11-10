@@ -30,10 +30,13 @@ include_once("templates/header.php");?>
                 <h1 class="text-2xl font-bold text-gray-800">
                     Tempat PKL
                 </h1>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Pilih tempat PKL yang sesuai dengan jurusan dan minat kamu.
-                </p>
+                <div class="flex justify-between">
+                    <p class="mt-1 text-sm text-gray-500">
+                        Pilih tempat PKL yang sesuai dengan jurusan dan minat kamu.
+                    </p>
+                    <a href="" class="bg-blue-700 block">Tambah Tempat PKL</a>
+                </div>
+                
             </div>
 
 
