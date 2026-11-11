@@ -34,7 +34,7 @@ include_once("templates/header.php");?>
                     <p class="mt-1 text-sm text-gray-500">
                         Pilih tempat PKL yang sesuai dengan jurusan dan minat kamu.
                     </p>
-                    <a href="" class="bg-blue-700 block">Tambah Tempat PKL</a>
+                    <a href="tambahTempatPkl.php" class="bg-blue-700 block text-white p-2 rounded-md hover:bg-blue-900">Tambah Tempat PKL</a>
                 </div>
                 
             </div>
