@@ -1,10 +1,20 @@
 <?php
 session_start();
 
+require_once __DIR__ . '/config/koneksi.php';
+
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
     die();
 }
+
+function allDataTempat($conn) {
+    $stmt = $conn->query("SELECT * FROM tempat_pkl");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$tempat = allDataTempat($conn);
+
 ?>
 
 
@@ -76,7 +86,7 @@ include_once("templates/header.php");?>
             <!-- ================= DAFTAR TEMPAT PKL ================= -->
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
 
-
+                <?php foreach($tempat as $pkl) : ?>
                 <!-- TEMPAT PKL 1 -->
                 <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
 
@@ -101,7 +111,7 @@ include_once("templates/header.php");?>
                         <div class="mb-3 flex items-start justify-between gap-3">
 
                             <h3 class="text-lg font-bold text-gray-800">
-                                PT Maju Jaya
+                                <?= $pkl['nama_tempat'] ?>
                             </h3>
 
                             <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
@@ -118,15 +128,15 @@ include_once("templates/header.php");?>
                         <div class="space-y-2 text-sm text-gray-600">
 
                             <p>
-                                📍 Jl. Merdeka No. 10
+                                📍 <?= $pkl['alamat']; ?>
                             </p>
 
                             <p>
-                                💼 Teknologi Informasi
+                                💼 <?= $pkl['bidang_usaha']; ?>
                             </p>
 
                             <p>
-                                👥 Kuota: 5 siswa
+                                👥 <?= $pkl['kuota']; ?> siswa
                             </p>
 
                         </div>
@@ -145,353 +155,9 @@ include_once("templates/header.php");?>
                     </div>
 
                 </div>
+                <?php endforeach; ?>
 
-
-                <!-- TEMPAT PKL 2 -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-                    <!-- GAMBAR -->
-                    <div class="flex h-40 items-center justify-center bg-purple-50">
-
-                        <div class="text-center">
-                            <div class="text-5xl">
-                                💻
-                            </div>
-
-                            <p class="mt-2 text-sm font-medium text-purple-600">
-                                Teknologi
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div class="p-5">
-
-                        <div class="mb-3 flex items-start justify-between gap-3">
-
-                            <h3 class="text-lg font-bold text-gray-800">
-                                CV Digital Kreatif
-                            </h3>
-
-                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
-                                Tersedia
-                            </span>
-
-                        </div>
-
-                        <p class="mb-3 text-sm text-gray-500">
-                            Tempat PKL untuk siswa yang tertarik dengan desain,
-                            website, dan teknologi digital.
-                        </p>
-
-                        <div class="space-y-2 text-sm text-gray-600">
-
-                            <p>
-                                📍 Jl. Sudirman No. 25
-                            </p>
-
-                            <p>
-                                💼 Desain & Web
-                            </p>
-
-                            <p>
-                                👥 Kuota: 3 siswa
-                            </p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <a
-                                href="pendaftaran.php"
-                                class="block rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                            >
-                                Pilih Tempat PKL
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TEMPAT PKL 3 -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-                    <!-- GAMBAR -->
-                    <div class="flex h-40 items-center justify-center bg-green-50">
-
-                        <div class="text-center">
-                            <div class="text-5xl">
-                                🏪
-                            </div>
-
-                            <p class="mt-2 text-sm font-medium text-green-600">
-                                Instansi
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div class="p-5">
-
-                        <div class="mb-3 flex items-start justify-between gap-3">
-
-                            <h3 class="text-lg font-bold text-gray-800">
-                                Toko Komputer Sejahtera
-                            </h3>
-
-                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
-                                Tersedia
-                            </span>
-
-                        </div>
-
-                        <p class="mb-3 text-sm text-gray-500">
-                            Tempat PKL untuk siswa yang ingin mempelajari
-                            perakitan dan perbaikan komputer.
-                        </p>
-
-                        <div class="space-y-2 text-sm text-gray-600">
-
-                            <p>
-                                📍 Jl. Pendidikan No. 15
-                            </p>
-
-                            <p>
-                                💼 Teknik Komputer
-                            </p>
-
-                            <p>
-                                👥 Kuota: 4 siswa
-                            </p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <a
-                                href="pendaftaran.php"
-                                class="block rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                            >
-                                Pilih Tempat PKL
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TEMPAT PKL 4 -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-                    <!-- GAMBAR -->
-                    <div class="flex h-40 items-center justify-center bg-yellow-50">
-
-                        <div class="text-center">
-                            <div class="text-5xl">
-                                🏦
-                            </div>
-
-                            <p class="mt-2 text-sm font-medium text-yellow-600">
-                                Perkantoran
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div class="p-5">
-
-                        <div class="mb-3 flex items-start justify-between gap-3">
-
-                            <h3 class="text-lg font-bold text-gray-800">
-                                Kantor Administrasi
-                            </h3>
-
-                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
-                                Tersedia
-                            </span>
-
-                        </div>
-
-                        <p class="mb-3 text-sm text-gray-500">
-                            Tempat PKL untuk mempelajari administrasi,
-                            pengolahan data, dan pelayanan.
-                        </p>
-
-                        <div class="space-y-2 text-sm text-gray-600">
-
-                            <p>
-                                📍 Jl. Ahmad Yani No. 8
-                            </p>
-
-                            <p>
-                                💼 Administrasi
-                            </p>
-
-                            <p>
-                                👥 Kuota: 2 siswa
-                            </p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <a
-                                href="pendaftaran.php"
-                                class="block rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                            >
-                                Pilih Tempat PKL
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TEMPAT PKL 5 -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-                    <div class="flex h-40 items-center justify-center bg-pink-50">
-
-                        <div class="text-center">
-                            <div class="text-5xl">
-                                🎨
-                            </div>
-
-                            <p class="mt-2 text-sm font-medium text-pink-600">
-                                Kreatif
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <div class="p-5">
-
-                        <div class="mb-3 flex items-start justify-between gap-3">
-
-                            <h3 class="text-lg font-bold text-gray-800">
-                                Studio Kreatif
-                            </h3>
-
-                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
-                                Tersedia
-                            </span>
-
-                        </div>
-
-                        <p class="mb-3 text-sm text-gray-500">
-                            Studio yang bergerak dalam bidang desain grafis,
-                            fotografi, dan media digital.
-                        </p>
-
-                        <div class="space-y-2 text-sm text-gray-600">
-
-                            <p>
-                                📍 Jl. Melati No. 20
-                            </p>
-
-                            <p>
-                                💼 Desain Grafis
-                            </p>
-
-                            <p>
-                                👥 Kuota: 3 siswa
-                            </p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <a
-                                href="pendaftaran.php"
-                                class="block rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                            >
-                                Pilih Tempat PKL
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- TEMPAT PKL 6 -->
-                <div class="overflow-hidden rounded-xl bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-
-                    <div class="flex h-40 items-center justify-center bg-indigo-50">
-
-                        <div class="text-center">
-                            <div class="text-5xl">
-                                🏫
-                            </div>
-
-                            <p class="mt-2 text-sm font-medium text-indigo-600">
-                                Pendidikan
-                            </p>
-                        </div>
-
-                    </div>
-
-                    <div class="p-5">
-
-                        <div class="mb-3 flex items-start justify-between gap-3">
-
-                            <h3 class="text-lg font-bold text-gray-800">
-                                Lembaga Pendidikan
-                            </h3>
-
-                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
-                                Tersedia
-                            </span>
-
-                        </div>
-
-                        <p class="mb-3 text-sm text-gray-500">
-                            Tempat PKL yang menyediakan pengalaman dalam
-                            bidang administrasi dan teknologi.
-                        </p>
-
-                        <div class="space-y-2 text-sm text-gray-600">
-
-                            <p>
-                                📍 Jl. Pendidikan No. 30
-                            </p>
-
-                            <p>
-                                💼 Administrasi & IT
-                            </p>
-
-                            <p>
-                                👥 Kuota: 5 siswa
-                            </p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <a
-                                href="pendaftaran.php"
-                                class="block rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-blue-700"
-                            >
-                                Pilih Tempat PKL
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
             </div>
 

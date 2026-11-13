@@ -2,63 +2,39 @@
 <?php
 require_once __DIR__ . '/config/koneksi.php';
 
-$pesan = '';
-$error = '';
+function tambahTempatPKL($conn) {
+    $nama_tempat = $_POST['nama_tempat'] ?? '';
+    $bidang      = $_POST['bidang'] ?? '';
+    $alamat      = $_POST['alamat'] ?? '';
+    $pembimbing  = $_POST['pembimbing'] ?? '';
+    $no_telp     = $_POST['no_telp'] ?? '';
+    $kuota       = $_POST['kuota'] ?? '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validasi input
+    if (empty($nama_tempat) || empty($bidang) || empty($alamat) || empty($pembimbing) || empty($no_telp) || empty($kuota)) {
+        echo "<script>alert('Semua field harus diisi.');</script>";
+        return;
+    }
 
-    $nama_tempat = trim($_POST['nama_tempat'] ?? '');
-    $alamat      = trim($_POST['alamat'] ?? '');
-    $bidang      = trim($_POST['bidang'] ?? '');
-    $pembimbing  = trim($_POST['pembimbing'] ?? '');
-    $no_telp     = trim($_POST['no_telp'] ?? '');
-    $kuota       = filter_var($_POST['kuota'] ?? '', FILTER_VALIDATE_INT);
+    // Menyimpan data ke database
+    $stmt = $conn->prepare("INSERT INTO tempat_pkl (nama_tempat, bidang_usaha, alamat, no_hp, kuota, pembimbing) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$nama_tempat, $bidang, $alamat, $no_telp, $kuota, $pembimbing]);
+    return $stmt->rowCount();
+}
 
-    if (
-        $nama_tempat === '' ||
-        $alamat === '' ||
-        $bidang === '' ||
-        $pembimbing === '' ||
-        $no_telp === '' ||
-        $kuota === false ||
-        $kuota < 0
-    ) {
-        $error = 'Semua data wajib diisi dengan benar!';
-    } else {
-
-        $query = "INSERT INTO tempat_pkl
-                  (nama_tempat, alamat, bidang, pembimbing, no_telp, kuota)
-                  VALUES (?, ?, ?, ?, ?, ?)";
-
-        $stmt = mysqli_prepare($host, $query);
-
-        if ($stmt) {
-            mysqli_stmt_bind_param(
-                $stmt,
-                "sssssi",
-                $nama_tempat,
-                $alamat,
-                $bidang,
-                $pembimbing,
-                $no_telp,
-                $kuota
-            );
-
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_close($stmt);
-
-                header("Location: index.php?status=berhasil");
-                exit;
-            } else {
-                $error = 'Gagal menyimpan data: ' . mysqli_stmt_error($stmt);
-            }
-
-            mysqli_stmt_close($stmt);
-        } else {
-            $error = 'Query database gagal: ' . mysqli_error($koneksi);
-        }
+if (isset($_POST['simpan'])) {
+    $tambah = tambahTempatPKL($conn);
+    if ($tambah > 0) {
+        echo "
+        <script>
+        alert('Tempat PKL berhasil ditambahkan!');
+        window.location.href = 'tempat.php';
+        </script>
+        ";
+        die();
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -105,14 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </p>
             </div>
 
-            <!-- PESAN ERROR -->
-            <?php if ($error !== ''): ?>
-                <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-5">
-                    <?= htmlspecialchars($error) ?>
-                </div>
-            <?php endif; ?>
-
-            <form method="POST" action="">
+            <form method="post" action="">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
@@ -125,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="text"
                                name="nama_tempat"
                                required
-                               value="<?= htmlspecialchars($_POST['nama_tempat'] ?? '') ?>"
                                placeholder="Contoh: PT Maju Jaya"
                                class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
@@ -185,7 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="text"
                                name="pembimbing"
                                required
-                               value="<?= htmlspecialchars($_POST['pembimbing'] ?? '') ?>"
                                placeholder="Nama pembimbing lapangan"
                                class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
@@ -199,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="tel"
                                name="no_telp"
                                required
-                               value="<?= htmlspecialchars($_POST['no_telp'] ?? '') ?>"
+                               
                                placeholder="Contoh: 081234567890"
                                class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
@@ -214,7 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                name="kuota"
                                min="0"
                                required
-                               value="<?= htmlspecialchars($_POST['kuota'] ?? '') ?>"
                                placeholder="Contoh: 5"
                                class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500">
 
@@ -233,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Batal
                     </a>
 
-                    <button type="submit"
+                    <button type="submit" name="simpan"
                             class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700">
                         Simpan Tempat PKL
                     </button>
