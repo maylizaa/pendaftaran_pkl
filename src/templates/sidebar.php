@@ -39,32 +39,6 @@
                 </a>
 
 
-                <!-- PENDAFTARAN -->
-                <a href="pendaftaran.php"
-                    class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-blue-50 transition">
-
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1.8"
-                            d="M3 6h18v12H3z" />
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="1.8"
-                            d="M3 7l9 6 9-6" />
-
-                    </svg>
-
-                    <span class="text-sm">
-                        Pendaftaran
-                    </span>
-
-                </a>
-
-
                 <!-- TEMPAT PKL -->
                 <a href="tempat.php"
                     class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-700 hover:bg-blue-50 transition">
@@ -87,7 +61,6 @@
                     </span>
 
                 </a>
-
 
                 <!-- LAPORAN -->
                 <a href="laporan.php"

@@ -35,8 +35,8 @@ include_once("templates/header.php");?>
         <!-- ================= ISI HALAMAN ================= -->
         <section class="p-6">
 
-            <!-- HEADER HALAMAN -->
-            <div class="mb-6">
+            <?php if(isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "admin") : ?>
+                 <div class="mb-6">
                 <h1 class="text-2xl font-bold text-gray-800">
                     Tempat PKL
                 </h1>
@@ -48,6 +48,22 @@ include_once("templates/header.php");?>
                 </div>
                 
             </div>
+            <?php else : ?>
+                 <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    Tempat PKL
+                </h1>
+                <div class="flex justify-between">
+                    <p class="mt-1 text-sm text-gray-500">
+                        Pilih tempat PKL yang sesuai dengan jurusan dan minat kamu.
+                    </p>
+                </div>
+                
+            </div>
+            <?php endif; ?>
+
+            <!-- HEADER HALAMAN -->
+           
 
 
             <!-- ================= PENCARIAN ================= -->
@@ -105,6 +121,7 @@ include_once("templates/header.php");?>
 
                     </div>
 
+                    <?php if(isset($_SESSION["user_role"]) && $_SESSION["user_role"] === "siswa"): ?>
                     <!-- CONTENT -->
                     <div class="p-5">
 
@@ -153,6 +170,43 @@ include_once("templates/header.php");?>
                         </div>
 
                     </div>
+                    <?php else: ?>
+                         <div class="p-5">
+
+                        <div class="mb-3 flex items-start justify-between gap-3">
+
+                            <h3 class="text-lg font-bold text-gray-800">
+                                <?= $pkl['nama_tempat'] ?>
+                            </h3>
+
+                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-600">
+                                Tersedia
+                            </span>
+
+                        </div>
+
+                        <p class="mb-3 text-sm text-gray-500">
+                            Perusahaan yang bergerak di bidang teknologi informasi
+                            dan pengembangan aplikasi.
+                        </p>
+
+                        <div class="space-y-2 text-sm text-gray-600">
+
+                            <p>
+                                📍 <?= $pkl['alamat']; ?>
+                            </p>
+
+                            <p>
+                                💼 <?= $pkl['bidang_usaha']; ?>
+                            </p>
+
+                            <p>
+                                👥 <?= $pkl['kuota']; ?> siswa
+                            </p>
+
+                        </div>
+                    </div>
+                    <?php endif; ?>
 
                 </div>
                 <?php endforeach; ?>
